@@ -7,8 +7,8 @@ class Notes {
   late String title;
   @HiveField(1)
   late String body;
-  // @HiveField(2)
-  // late Color color;
+  @HiveField(2)
+  late int color;
 
-  Notes({required title, required body});
+  Notes({required this.title, required this.body});
 }

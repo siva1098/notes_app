@@ -4,7 +4,7 @@ import 'package:notes_app/models/notes.dart';
 import 'package:notes_app/screens/addNote.dart';
 import 'package:notes_app/screens/listNotes.dart';
 
-void main() async {
+Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NotesAdapter());
   await Hive.openBox('notesBox');
@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ListNotes(),
+      home: ListNotes(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 
 import 'package:notes_app/models/notes.dart';
+import 'dart:math' as math;
 
 class AddNote extends StatefulWidget {
   const AddNote({Key? key}) : super(key: key);
@@ -23,7 +24,8 @@ class _AddNoteState extends State<AddNote> {
   }
 
   _addNote() {
-    Notes note = Notes(title: titleController.text, body: bodyController);
+    Notes note = Notes(title: titleController.text, body: bodyController.text);
+    note.color = (math.Random().nextDouble() * 0xFFFFFF).toInt();
     box.add(note);
     print('Info added to box!');
     Navigator.of(context).pop();
@@ -33,7 +35,7 @@ class _AddNoteState extends State<AddNote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notes'),
+        title: const Text('Add Note'),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -42,8 +44,9 @@ class _AddNoteState extends State<AddNote> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextField(
+              autofocus: true,
               controller: titleController,
-              style: GoogleFonts.sourceCodePro(
+              style: GoogleFonts.openSans(
                   fontSize: 20.0, fontWeight: FontWeight.w500),
               decoration: const InputDecoration(
                 labelText: 'Title',
@@ -55,6 +58,8 @@ class _AddNoteState extends State<AddNote> {
             ),
             TextFormField(
               controller: bodyController,
+              style: GoogleFonts.openSans(
+                  fontSize: 20.0, fontWeight: FontWeight.w500),
               decoration: const InputDecoration(border: OutlineInputBorder()),
               maxLines: 10,
             ),
