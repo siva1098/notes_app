@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:notes_app/screens/addNote.dart';
-import 'package:notes_app/screens/updateNote.dart';
+import 'package:notes_app/screens/add_note.dart';
+import 'package:notes_app/screens/update_note.dart';
 
 class ListNotes extends StatefulWidget {
   const ListNotes({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _ListNotesState extends State<ListNotes> {
 
   _deleteNote(int index) {
     noteBox.deleteAt(index);
-    print('Item deleted from box at index: $index');
+    // print('Item deleted from box at index: $index');
   }
 
   @override
@@ -64,6 +64,8 @@ class _ListNotesState extends State<ListNotes> {
                     ),
                   ),
                   child: ListTile(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
                     tileColor: Color(downloadData.color).withOpacity(0.3),
                     isThreeLine: true,
                     title: Text(downloadData.title),

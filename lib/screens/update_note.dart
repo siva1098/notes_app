@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-
 import 'package:notes_app/models/notes.dart';
-import 'dart:math' as math;
 
-class AddNote extends StatefulWidget {
-  const AddNote({Key? key}) : super(key: key);
+class UpdateNote extends StatefulWidget {
+  final int index;
+  final Notes note;
+  const UpdateNote({Key? key, required this.index, required this.note})
+      : super(key: key);
 
   @override
-  _AddNoteState createState() => _AddNoteState();
+  _UpdateNoteState createState() => _UpdateNoteState();
 }
 
-class _AddNoteState extends State<AddNote> {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController bodyController = TextEditingController();
+class _UpdateNoteState extends State<UpdateNote> {
+  late final TextEditingController titleController;
+  late final TextEditingController bodyController;
+  late final int color;
   late final Box box;
 
   @override
   void initState() {
     super.initState();
     box = Hive.box('notesBox');
+    titleController = TextEditingController(text: widget.note.title);
+    bodyController = TextEditingController(text: widget.note.body);
+    color = widget.note.color;
   }
 
-  _addNote() {
+  _updateNote() {
     Notes note = Notes(title: titleController.text, body: bodyController.text);
-    note.color = (math.Random().nextDouble() * 0xFFFFFF).toInt();
-    box.add(note);
-    print('Info added to box!');
+    note.color = color;
+    box.putAt(widget.index, note);
+    // print('Info Updated to box!');
     Navigator.of(context).pop();
   }
 
@@ -35,7 +40,7 @@ class _AddNoteState extends State<AddNote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Note'),
+        title: const Text('Update Note'),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -67,10 +72,10 @@ class _AddNoteState extends State<AddNote> {
               height: 10.0,
             ),
             ElevatedButton(
-              onPressed: () => _addNote(),
+              onPressed: () => _updateNote(),
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.blue)),
-              child: const Text("Add"),
+              child: const Text("Update"),
             )
           ],
         ),

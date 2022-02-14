@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:notes_app/models/notes.dart';
-import 'package:notes_app/screens/addNote.dart';
-import 'package:notes_app/screens/listNotes.dart';
+import 'package:notes_app/screens/list_notes.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -33,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ListNotes(),
+      home: const ListNotes(),
       debugShowCheckedModeBanner: false,
     );
   }
