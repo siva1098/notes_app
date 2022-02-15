@@ -56,19 +56,27 @@ class _ListNotesState extends State<ListNotes> {
                 var downloadData = currentBox.getAt(index)!;
                 return Hero(
                   tag: 'notes' + index.toString(),
-                  child: InkWell(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => UpdateNote(
-                          index: index,
-                          note: downloadData,
-                        ),
-                      ),
-                    ),
+                  child: Dismissible(
+                    key: Key(index.toString()),
+                    onDismissed: (direction) {
+                      _deleteNote(index);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Note Deleted ! !')));
+                    },
+                    background: Container(
+                        color: const Color.fromARGB(255, 245, 51, 51)),
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
                       tileColor: Color(downloadData.color).withOpacity(0.3),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => UpdateNote(
+                            index: index,
+                            note: downloadData,
+                          ),
+                        ),
+                      ),
                       isThreeLine: true,
                       title: Text(downloadData.title),
                       subtitle: Text(
