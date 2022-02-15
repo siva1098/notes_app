@@ -54,30 +54,33 @@ class _ListNotesState extends State<ListNotes> {
               itemBuilder: (context, index) {
                 var currentBox = box;
                 var downloadData = currentBox.getAt(index)!;
-                return InkWell(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => UpdateNote(
-                        index: index,
-                        note: downloadData,
+                return Hero(
+                  tag: 'notes' + index.toString(),
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => UpdateNote(
+                          index: index,
+                          note: downloadData,
+                        ),
                       ),
                     ),
-                  ),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    tileColor: Color(downloadData.color).withOpacity(0.3),
-                    isThreeLine: true,
-                    title: Text(downloadData.title),
-                    subtitle: Text(
-                      downloadData.body,
-                      maxLines: 1,
-                    ),
-                    trailing: IconButton(
-                      onPressed: () => _deleteNote(index),
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      tileColor: Color(downloadData.color).withOpacity(0.3),
+                      isThreeLine: true,
+                      title: Text(downloadData.title),
+                      subtitle: Text(
+                        downloadData.body,
+                        maxLines: 1,
+                      ),
+                      trailing: IconButton(
+                        onPressed: () => _deleteNote(index),
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
                       ),
                     ),
                   ),

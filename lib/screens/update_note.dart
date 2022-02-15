@@ -42,42 +42,45 @@ class _UpdateNoteState extends State<UpdateNote> {
       appBar: AppBar(
         title: const Text('Update Note'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextField(
-              autofocus: true,
-              controller: titleController,
-              style: GoogleFonts.openSans(
-                  fontSize: 20.0, fontWeight: FontWeight.w500),
-              decoration: const InputDecoration(
-                labelText: 'Title',
-                border: OutlineInputBorder(),
+      body: Hero(
+        tag: 'note' + widget.index.toString(),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextField(
+                // autofocus: true,
+                controller: titleController,
+                style: GoogleFonts.openSans(
+                    fontSize: 20.0, fontWeight: FontWeight.w500),
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            TextFormField(
-              controller: bodyController,
-              style: GoogleFonts.openSans(
-                  fontSize: 20.0, fontWeight: FontWeight.w500),
-              decoration: const InputDecoration(border: OutlineInputBorder()),
-              maxLines: 10,
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            ElevatedButton(
-              onPressed: () => _updateNote(),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue)),
-              child: const Text("Update"),
-            )
-          ],
+              const SizedBox(
+                height: 10.0,
+              ),
+              TextFormField(
+                controller: bodyController,
+                style: GoogleFonts.openSans(
+                    fontSize: 20.0, fontWeight: FontWeight.w500),
+                decoration: const InputDecoration(border: OutlineInputBorder()),
+                maxLines: 10,
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              ElevatedButton(
+                onPressed: () => _updateNote(),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blue)),
+                child: const Text("Update"),
+              )
+            ],
+          ),
         ),
       ),
     );
